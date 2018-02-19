@@ -24,10 +24,10 @@ accounts:
 #   https://www.spinnaker.io/setup/features/notifications/#email
 mail:
   enabled: false
-  host: smtp.example.org
-  username: admin
-  password: admin
-  fromAddress: spinnaker@example.org
+  host: smtp.gmail.com
+  username:
+  password:
+  fromAddress:
   port: 25
 
 slack:
@@ -121,7 +121,14 @@ jenkins:
     CustomConfigMap: true
     NodeSelector: {}
 
+
   Agent:
+    Image: "billyteves/jenkinslave-dind-kubernetes"
+    ImageTag: "latest"
     Cpu: "500m"
     Memory: "512Mi"
     NodeSelector: {}
+    volumes:
+      - type: HostPath
+        hostPath: /var/run/docker.sock
+        mountPath: /var/run/docker.sock
